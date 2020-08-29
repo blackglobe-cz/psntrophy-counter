@@ -1,0 +1,30 @@
+{
+  "name": "PSN Profiles Counter",
+  "version": "1.0",
+  "description": "Extension that counts games within trophy advisor page.",
+  "manifest_version": 2,
+  "permissions": [
+    "declarativeContent"
+  ],
+  "background": {
+    "scripts": [
+      "jquery.js",
+      "background.js"
+    ],
+    "persistent": false
+  },
+  "page_action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://psnprofiles.com/*log*"
+      ],
+      "js": [
+        "jquery.js",
+        "script.js"
+      ]
+    }
+  ]
+}
