@@ -1,7 +1,12 @@
+const sanitizeTitle = name => {
+    const title = name.replace(/^https:\/\/psnprofiles.com\/trophies\/\d*-(.*)\/.*$/, '$1').replace(/-/g, ' ');
+    return title.charAt(0).toUpperCase() + title.slice(1);
+}
+
 const addRow = (count, name, tableRef) => {
     const newRow = tableRef.insertRow();
     const newCellName = newRow.insertCell(0);
-    const newTextName = document.createTextNode(name.replace(/^https:\/\/psnprofiles.com\/trophies\/\d*-(.*)\/.*$/, '$1'));
+    const newTextName = document.createTextNode(sanitizeTitle(name));
     newCellName.appendChild(newTextName);
 
     const newCellCount = newRow.insertCell(0);
