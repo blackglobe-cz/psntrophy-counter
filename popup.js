@@ -1,22 +1,28 @@
 const sanitizeTitle = name => {
-    const title = name.replace(/^https:\/\/psnprofiles.com\/trophies\/\d*-(.*)\/.*$/, '$1').replace(/-/g, ' ');
+    const title = name.replace(/^\/trophies\/\d*-(.*)\/.*$/, '$1').replace(/-/g, ' ');
     return title.charAt(0).toUpperCase() + title.slice(1);
 }
 
-const addRow = (count, name, tableRef) => {
+const addRow = ({count, title, platinum}, tableRef) => {
     const newRow = tableRef.insertRow();
-    const newCellName = newRow.insertCell(0);
-    const newTextName = document.createTextNode(sanitizeTitle(name));
-    newCellName.appendChild(newTextName);
 
     const newCellCount = newRow.insertCell(0);
     const newTextCount = document.createTextNode(count);
     newCellCount.appendChild(newTextCount);
+
+    const newCellName = newRow.insertCell(1);
+    const newTextName = document.createTextNode(sanitizeTitle(title));
+    newCellName.appendChild(newTextName);
+
+
+    const newCellPlatinum = newRow.insertCell(2);
+    const newTextPlatinum = document.createTextNode(platinum ? 'Yes' : '');
+    newCellPlatinum.appendChild(newTextPlatinum);
 };
 
 const setDOMInfo = info => {
     const tableContent = document.getElementById('count-table-content');
-    info.forEach(item => addRow(item.count, item.title, tableContent))
+    info.forEach(item => addRow(item, tableContent))
 };
 
 window.addEventListener('DOMContentLoaded', () => {
